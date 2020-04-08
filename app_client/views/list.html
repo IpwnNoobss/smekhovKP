@@ -1,0 +1,42 @@
+<ng-include src="'views/mainMenu.html'"></ng-include>
+
+<br><br><br><br><br><br><br><h2>{{ vm.title }}</h2>
+
+{{vm.test}}
+
+<div ng-hide="vm.list.length" class="alert alert-primary" role="alert">
+    Обращений еще нет.
+</div>
+
+<table ng-show="vm.list.length" class="container-fluid table-bordered ">
+
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>ФИО</th>
+        <th>Фактический адрес</th>
+        <th>Номер телефона</th>
+        <th>Услуга</th>
+        <th>Почтовый индекс</th>
+        <th>Дата подачи обращения</th>
+
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="line in vm.list">
+        <td>{{line._id}}</td>
+        <td>{{line.FCS}}</td>
+        <td>{{line.actualAddress}}</td>
+        <td>{{line.phoneNumber}}</td>
+        <td>{{line.service}}</td>
+        <td>{{line.CheIndex}}</td>
+        <td>{{line.dateFiling| date:'yyyy-MM-dd'}}</td>
+
+        <td>
+            <a href="/#!/update/{{line._id}}" class="btn btn-warning btn-sm">Изменить</a>
+            <a href="/#!/delete/{{line._id}}" class="btn btn-danger btn-sm">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
