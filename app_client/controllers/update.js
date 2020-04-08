@@ -42,29 +42,20 @@ function updateCtrl($http, $location, $routeParams) {
     };
 
     vm.validate = function () {
+
         vm.formWasValidated = true;
         const onlyLettersAndDigits = /^([-\.a-zа-яё \d]+)$/i;
-        const onlyLettersAndDigitsPhoneNumber = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i;
-        const onlyLettersAndDigitsCheIndex = /[0-9]{6}/i;
 
         for (let field in vm.formModel) {
             if (field !== 'dateFiling' && field !== 'service') {
-                if (field === 'phoneNumber') {
-                    vm.formModel[field].valid = onlyLettersAndDigitsPhoneNumber.test(vm.formModel[field].value);
-                    vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Номер телефона в любом формате';
-                    vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                } else {
-                    if (field === 'CheIndex') {
-                        vm.formModel[field].valid = onlyLettersAndDigitsCheIndex.test(vm.formModel[field].value);
-                        vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Формат индекса';
-                        vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                    } else {
-                        vm.formModel[field].valid = onlyLettersAndDigits.test(vm.formModel[field].value);
-                        vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Допускаются только буквы и цифры';
-                        vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                    }
-                }
+                vm.formModel[field].valid = onlyLettersAndDigits.test(vm.formModel[field].value);
+                vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Допускаются только буквы и цифры';
             }
+            if (field === 'service') {
+                vm.formModel.service.valid = (vm.formModel.service.value !== undefined) && (vm.formModel.service.value !== '');
+                vm.formModel.service.infoText = (vm.formModel.service.valid) ? 'Введено верно' : 'Выберите категорию';
+            }
+            vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
         }
     };
 

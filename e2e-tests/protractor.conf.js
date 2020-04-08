@@ -13,7 +13,7 @@ exports.config = {
         //     //'deviceName': 'Google Nexus 5',
         // },
       {
-       'browserName': 'firefox',
+       'browserName': 'chrome',
        'webdriver.gecko.driver': './geckodriver',
       },
 

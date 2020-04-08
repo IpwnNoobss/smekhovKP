@@ -5,7 +5,7 @@
     <div class="form-row">
         <div class="col-md-6 mb-3">
             <label for="FCS">ФИО</label>
-            <input ng-class="(vm.formModel.FCS.valid) ? '': 'is-invalid'"  ng-model="vm.formModel.FCS.value"
+            <input ng-class="(vm.formModel.FCS.valid) ? 'is-valid': 'is-invalid'"  ng-model="vm.formModel.FCS.value"
                    type="text" class="form-control" id="FCS" ng-keyup="vm.validate()">
             <div ng-class="(vm.formModel.FCS.valid && vm.formWasValidated) ? 'valid-feedback': 'invalid-feedback'">
                 {{vm.formModel.FCS.infoText}}
@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-3 mb-3">
             <label for="actualAddress">Фактический адрес</label>
-            <input ng-class="(vm.formModel.actualAddress.valid) ? '': 'is-invalid'" ng-model="vm.formModel.actualAddress.value"
+            <input ng-class="(vm.formModel.actualAddress.valid) ? 'is-valid': 'is-invalid'" ng-model="vm.formModel.actualAddress.value"
                    type="text" class="form-control" id="actualAddress" ng-keyup="vm.validate()">
             <div ng-class="(vm.formModel.actualAddress.valid && vm.formWasValidated) ? 'valid-feedback': 'invalid-feedback'">
                 {{vm.formModel.actualAddress.infoText}}
@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-3 mb-3">
             <label for="phoneNumber">Номер телефона</label>
-            <input ng-class="(vm.formModel.phoneNumber.valid) ? '': 'is-invalid'" ng-model="vm.formModel.phoneNumber.value"
+            <input ng-class="(vm.formModel.phoneNumber.valid) ? 'is-valid': 'is-invalid'" ng-model="vm.formModel.phoneNumber.value"
                    ng-keyup="vm.validate()" type="text" class="form-control" id="phoneNumber" value="ФИО">
             <div ng-class="(vm.formModel.phoneNumber.valid && vm.formWasValidated) ? 'valid-feedback': 'invalid-feedback'">
                 {{vm.formModel.phoneNumber.infoText}}
@@ -32,7 +32,7 @@
         <div class="col-md-3 mb-4">
             <label for="service" >Услуга</label>
 
-            <select id="packSelect" ng-model="vm.formModel.service.value" ng-class="(vm.formModel.service.valid) ? '': 'is-invalid'"
+            <select id="packSelect" ng-model="vm.formModel.service.value" ng-class="(vm.formModel.service.valid) ? 'is-valid' : 'is-invalid'"
                     ng-change="vm.validate()" type="text" class="form-control" id="service" value="услуга">
                 <option value="">Откройте это меню чтобы выбрать</option>
                 <option value="Военизировання охрана">Военизировання охрана</option>
@@ -41,13 +41,13 @@
                 <option value="Сопровождение грузов">Сопровождение грузов</option>
                 <option value="Охрана объекта и промышленности">Охрана объекта и промышленности</option>
             </select>
-            <div ng-class="(vm.formModel.service.valid && vm.formWasValidated) ? 'valid-feedback': 'invalid-feedback'">
+            <div ng-class="(vm.formModel.service.valid) ? 'valid-feedback': 'invalid-feedback'">
                 {{vm.formModel.service.infoText}}
             </div>
         </div>
         <div class="col-md-5 mb-4">
             <label for="CheIndex">Почтовый индекс</label>
-            <input ng-class="(vm.formModel.CheIndex.valid) ? '': 'is-invalid'" ng-model="vm.formModel.CheIndex.value"
+            <input ng-class="(vm.formModel.CheIndex.valid) ? 'is-valid': 'is-invalid'" ng-model="vm.formModel.CheIndex.value"
                    ng-keyup="vm.validate()" type="text" class="form-control" id="CheIndex" >
             <div ng-class="(vm.formModel.CheIndex.valid && vm.formWasValidated) ? 'valid-feedback': 'invalid-feedback'">
                 {{vm.formModel.CheIndex.infoText}}

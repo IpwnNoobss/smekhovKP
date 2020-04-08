@@ -98,8 +98,8 @@ module.exports.login = (req, res) => {
                 .digest('base64');
 
             const now = Date.now();
-            const tokenTTL = (process.env.TOKENTTLMINUTES) ? parseInt(process.env.TOKENTTLMINUTES) : 1;
-            const expired = now + tokenTTL * 60 * 10000000000000000000;
+            const tokenTTL = (process.env.TOKENTTLMINUTES) ? parseInt(process.env.TOKENTTLMINUTES) : 120;
+            const expired = now + tokenTTL * 60 * 1000;
 
             token.create({
                 userId: userEx._id,

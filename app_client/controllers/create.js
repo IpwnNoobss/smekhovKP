@@ -3,33 +3,33 @@ function createCtrl($http, $location) {
     vm.error = '';
     vm.title = "";
 
-
+    const invalidMessage = 'Допускаются только буквы и цифры';
     vm.formWasValidated = false;
 
     vm.formModel = {
         FCS: {
-            valid: true,
-            infoText: '',
+            valid: false,
+            infoText: invalidMessage,
             value: ''
         },
         actualAddress: {
-            valid: true,
-            infoText: '',
+            valid: false,
+            infoText: invalidMessage,
             value: ''
         },
         phoneNumber: {
-            valid: true,
-            infoText: '',
+            valid: false,
+            infoText: invalidMessage,
             value: ''
         },
         service: {
-            valid: true,
-            infoText: '',
+            valid: false,
+            infoText: invalidMessage,
             value: ''
         },
         CheIndex: {
-            valid: true,
-            infoText: '',
+            valid: false,
+            infoText: invalidMessage,
             value: ''
         },
         dateFiling: {
@@ -41,60 +41,51 @@ function createCtrl($http, $location) {
     };
 
     vm.validate = function () {
+
         vm.formWasValidated = true;
         const onlyLettersAndDigits = /^([-\.a-zа-яё \d]+)$/i;
-        const onlyLettersAndDigitsPhoneNumber = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i;
-        const onlyLettersAndDigitsCheIndex = /[0-9]{6}/i;
 
         for (let field in vm.formModel) {
             if (field !== 'dateFiling' && field !== 'service') {
-                if (field === 'phoneNumber') {
-                    vm.formModel[field].valid = onlyLettersAndDigitsPhoneNumber.test(vm.formModel[field].value);
-                    vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Номер телефона в любом формате';
-                    vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                } else {
-                    if (field === 'CheIndex') {
-                        vm.formModel[field].valid = onlyLettersAndDigitsCheIndex.test(vm.formModel[field].value);
-                        vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Формат индекса';
-                        vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                    } else {
-                        vm.formModel[field].valid = onlyLettersAndDigits.test(vm.formModel[field].value);
-                        vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Допускаются только буквы и цифры';
-                        vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
-                    }
-                }
+                vm.formModel[field].valid = onlyLettersAndDigits.test(vm.formModel[field].value);
+                vm.formModel[field].infoText = (vm.formModel[field].valid) ? 'Введено верно' : 'Допускаются только буквы и цифры';
             }
+            if (field === 'service') {
+                vm.formModel.service.valid = (vm.formModel.service.value !== undefined) && (vm.formModel.service.value !== '');
+                vm.formModel.service.infoText = (vm.formModel.service.valid) ? 'Введено верно' : 'Выберите категорию';
+            }
+            vm.formWasValidated = vm.formWasValidated && vm.formModel[field].valid;
         }
     };
 
 
-        vm.sendForm = function () {
+    vm.sendForm = function () {
 
-            vm.error = '';
+        vm.error = '';
 
-            console.log('waiting...');
-            let p1 = $http.post('/api/appeals', {
-                FCS: vm.formModel.FCS.value,
-                actualAddress: vm.formModel.actualAddress.value,
-                phoneNumber: vm.formModel.phoneNumber.value,
-                service: vm.formModel.service.value,
-                CheIndex: vm.formModel.CheIndex.value,
-                dateFiling: vm.formModel.dateFiling.value,
+        console.log('waiting...');
+        let p1 = $http.post('/api/appeals', {
+            FCS: vm.formModel.FCS.value,
+            actualAddress: vm.formModel.actualAddress.value,
+            phoneNumber: vm.formModel.phoneNumber.value,
+            service: vm.formModel.service.value,
+            CheIndex: vm.formModel.CheIndex.value,
+            dateFiling: vm.formModel.dateFiling.value,
 
-            }, {
-                headers: {
-                    token: localStorage.getItem('token')
-                }
-            });
+        }, {
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        });
 
-            p1.then(res => {
-                console.log('success!');
-                $location.path('/');
-            }, err => {
-                vm.error = 'Ошибка: ' + JSON.stringify(err);
+        p1.then(res => {
+            console.log('success!');
+            $location.path('/');
+        }, err => {
+            vm.error = 'Ошибка: ' + JSON.stringify(err);
 
-            });
-        }
+        });
+    }
 
 
 }

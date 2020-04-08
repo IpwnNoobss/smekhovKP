@@ -55,7 +55,7 @@ describe('login 2', () => {
         });
 
         await syncTest(()=>{
-            expect(element(by.css('body > div > div > h2')).getText()).toContain('Список практик');
+            expect(element(by.css('body > div > div > h2')).getText()).toContain('Список обращений');
         });
     });
 });
